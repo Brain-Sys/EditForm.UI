@@ -1,0 +1,10 @@
+﻿<Application x:Class="EditForm.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:EditForm.UI"
+             xmlns:converters="clr-namespace:EditForm.UI.Converters"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <converters:BoolToVisConverter x:Key="blnVis" />
+    </Application.Resources>
+</Application>

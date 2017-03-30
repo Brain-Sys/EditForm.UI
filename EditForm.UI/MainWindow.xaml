@@ -1,0 +1,103 @@
+﻿<Window x:Class="EditForm.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EditForm.UI"
+        xmlns:viewmodels="clr-namespace:EditForm.UI.ViewModels"
+        xmlns:controls="clr-namespace:EditForm.UI.Controls"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="350" Width="525">
+
+    <Window.Resources>
+        <viewmodels:MainViewModel x:Key="viewmodel" />
+    </Window.Resources>
+    
+    <Grid DataContext="{StaticResource viewmodel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{Binding People,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Column="0" SelectedItem="{Binding SelectedPerson}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Modifica" Command="{Binding StartEditCommand}" />
+            </StackPanel>
+            
+            <TextBlock Text="Nome" Grid.Row="1" />
+            <TextBlock Text="Cognome" Grid.Row="2" />
+            <TextBlock Text="Nascita" Grid.Row="3" />
+            <TextBlock Text="Sposato" Grid.Row="4" />
+            <TextBlock Text="Regione" Grid.Row="5" />
+
+            <controls:EditField Grid.Column="1" Grid.Row="1" Flag="IsEditing">
+                <controls:EditField.View>
+                    <TextBlock Text="{Binding SelectedPerson.Name}" />
+                </controls:EditField.View>
+                <controls:EditField.Edit>
+                    <TextBox Text="{Binding SelectedPerson.Name}" />
+                </controls:EditField.Edit>
+            </controls:EditField>
+
+            <controls:EditField Grid.Column="1" Grid.Row="2" Flag="IsEditing">
+                <controls:EditField.View>
+                    <TextBlock Text="{Binding SelectedPerson.Surname}" />
+                </controls:EditField.View>
+                <controls:EditField.Edit>
+                    <TextBox Text="{Binding SelectedPerson.Surname}" />
+                </controls:EditField.Edit>
+            </controls:EditField>
+
+            <controls:EditField Grid.Column="1" Grid.Row="3" Flag="IsEditing">
+                <controls:EditField.View>
+                    <TextBlock Text="{Binding SelectedPerson.BirthDate}" />
+                </controls:EditField.View>
+                <controls:EditField.Edit>
+                    <DatePicker SelectedDate="{Binding SelectedPerson.BirthDate}" />
+                </controls:EditField.Edit>
+            </controls:EditField>
+
+            <controls:EditField Grid.Column="1" Grid.Row="4" Flag="IsEditing">
+                <controls:EditField.View>
+                    <TextBlock Text="{Binding SelectedPerson.Married}" />
+                </controls:EditField.View>
+                <controls:EditField.Edit>
+                    <CheckBox IsChecked="{Binding SelectedPerson.Married}" />
+                </controls:EditField.Edit>
+            </controls:EditField>
+
+            <controls:EditField Grid.Column="1" Grid.Row="5" Flag="IsEditing">
+                <controls:EditField.View>
+                    <TextBlock Text="{Binding SelectedPerson.Region}" />
+                </controls:EditField.View>
+                <controls:EditField.Edit>
+                    <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedPerson.Region}" />
+                </controls:EditField.Edit>
+            </controls:EditField>
+
+        </Grid>
+        
+    </Grid>
+</Window>
